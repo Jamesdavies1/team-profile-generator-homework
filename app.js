@@ -8,34 +8,38 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 
-function addNewManager(answers) {
-  console.log("And your answers are:", answers);
+function addNewManager() {
+  console.log("Please begin by adding a new Manager...");
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "name",
+        message: "Please add Manager name"
+      },
+      {
+        type: "input",
+        name: "id",
+        message: "Please add Manager id"
+      },
+      {
+        type: "input",
+        name: "email",
+        message: "Please add Manager email address"
+      },
+      {
+        type: "input",
+        name: "number",
+        message: "Please add Manager office telephone number"
+      }
+    ])
+    .then(({ name, id, email, number }) => {
+      const newManager = new Manager(name, id, email, number);
+      console.log(newManager);
+    });
 }
 
-var questions = [
-  {
-    message: "Please begin by adding a new Manager...",
-    type: "input",
-    name: "name",
-    message: "What is your name?"
-  },
-  {
-    type: "input",
-    name: "id",
-    message: "What is your employee id?"
-  },
-  {
-    type: "input",
-    name: "email",
-    message: "What is your email address?"
-  },
-  {
-    type: "input",
-    name: "number",
-    message: "What is your office number?"
-  }
-];
-inquirer.prompt(questions, addNewManager);
+addNewManager();
 // inquirer
 //   .prompt([
 //     {
