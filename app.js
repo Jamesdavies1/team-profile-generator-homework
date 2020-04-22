@@ -8,7 +8,36 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 
-var questions = [
+//manager
+var manager = [
+  {
+    type: "input",
+    name: "name",
+    message: "What's your name"
+  },
+  {
+    type: "input",
+    name: "id",
+    message: "What's your work id"
+  },
+  {
+    type: "input",
+    name: "email",
+    message: "What's your email address"
+  },
+  {
+    type: "input",
+    name: "number",
+    message: "What's your office number?"
+  }
+];
+
+inquirer.prompt(manager).then(({ name, id, email, officeNumber }) => {
+  const newManager = new Manager(name, id, email, officeNumber);
+  console.log(newManager);
+});
+//engineer
+var engineer = [
   {
     type: "input",
     name: "name",
@@ -31,9 +60,67 @@ var questions = [
   }
 ];
 
-inquirer.prompt(questions).then(({ name, id, email, github }) => {
+inquirer.prompt(engineer).then(({ name, id, email, github }) => {
   const newEngineer = new Engineer(name, id, email, github);
   console.log(newEngineer);
+});
+
+//intern
+var intern = [
+  {
+    type: "input",
+    name: "name",
+    message: "What's your name"
+  },
+  {
+    type: "input",
+    name: "id",
+    message: "What's your work id"
+  },
+  {
+    type: "input",
+    name: "email",
+    message: "What's your email address"
+  },
+  {
+    type: "input",
+    name: "github",
+    message: "What school are you attending?"
+  }
+];
+
+inquirer.prompt(intern).then(({ name, id, email, school }) => {
+  const newIntern = new Intern(name, id, email, school);
+  console.log(newIntern);
+});
+
+//employee
+var employee = [
+  {
+    type: "input",
+    name: "name",
+    message: "What's your name"
+  },
+  {
+    type: "input",
+    name: "id",
+    message: "What's your work id"
+  },
+  {
+    type: "input",
+    name: "email",
+    message: "What's your email address"
+  },
+  {
+    type: "input",
+    name: "github",
+    message: "What's your role?"
+  }
+];
+
+inquirer.prompt(employee).then(({ name, id, email, role }) => {
+  const newEmployee = new Employee(name, id, email, role);
+  console.log(newEmployee);
 });
 
 // Write code to use inquirer to gather information about the development team members,
