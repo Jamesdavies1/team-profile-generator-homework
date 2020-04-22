@@ -39,7 +39,11 @@ function addNewManager() {
     });
 }
 
-addNewManager();
+function buildNewTeam() {
+  addNewManager();
+}
+
+buildNewTeam();
 // inquirer
 //   .prompt([
 //     {
