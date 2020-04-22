@@ -39,8 +39,39 @@ function addNewManager() {
     });
 }
 
+function addNewEmployee() {
+  console.log("Please insert Employee details...");
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "name",
+        message: "Please add Employee name"
+      },
+      {
+        type: "input",
+        name: "id",
+        message: "Please add Employee id"
+      },
+      {
+        type: "input",
+        name: "email",
+        message: "Please add Employee email address"
+      },
+      {
+        type: "input",
+        name: "role",
+        message: "Please add Employee's role"
+      }
+    ])
+    .then(({ name, id, email, role }) => {
+      const newEmployee = new Employee(name, id, email, role);
+      console.log(newEmployee);
+    });
+}
+
 function buildNewTeam() {
-  addNewManager();
+  addNewManager().then(addNewEmployee());
 }
 
 buildNewTeam();
