@@ -8,73 +8,108 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 
-function addNewManager() {
-  console.log("Please begin by adding a new Manager...");
-  inquirer
-    .prompt([
-      {
-        type: "input",
-        name: "name",
-        message: "Please add Manager name"
-      },
-      {
-        type: "input",
-        name: "id",
-        message: "Please add Manager id"
-      },
-      {
-        type: "input",
-        name: "email",
-        message: "Please add Manager email address"
-      },
-      {
-        type: "input",
-        name: "number",
-        message: "Please add Manager office telephone number"
-      }
-    ])
-    .then(({ name, id, email, number }) => {
-      const newManager = new Manager(name, id, email, number);
-      console.log(newManager);
-    });
+function createNewTeam() {
+  function addNewManager() {
+    console.log("Please begin by adding a new Manager...");
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          name: "name",
+          message: "Please add Manager name"
+        },
+        {
+          type: "input",
+          name: "id",
+          message: "Please add Manager id"
+        },
+        {
+          type: "input",
+          name: "email",
+          message: "Please add Manager email address"
+        },
+        {
+          type: "input",
+          name: "number",
+          message: "Please add Manager office telephone number"
+        }
+      ])
+      .then(({ name, id, email, number }) => {
+        const newManager = new Manager(name, id, email, number);
+        console.log(newManager);
+        addNewIntern();
+      });
+  }
+
+  function addNewIntern() {
+    console.log("Please insert Intern details...");
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          name: "name",
+          message: "Please add Intern name"
+        },
+        {
+          type: "input",
+          name: "id",
+          message: "Please add Intern id"
+        },
+        {
+          type: "input",
+          name: "email",
+          message: "Please add Intern email address"
+        },
+        {
+          type: "input",
+          name: "school",
+          message: "Please add Intern's role"
+        }
+      ])
+      .then(({ name, id, email, school }) => {
+        const newIntern = new Intern(name, id, email, school);
+        console.log(newIntern);
+        addNewEngineer();
+      })
+      .catch(console.error());
+  }
+
+  function addNewEngineer() {
+    console.log("Please insert Engineer details...");
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          name: "name",
+          message: "Please add Engineer name"
+        },
+        {
+          type: "input",
+          name: "id",
+          message: "Please add Engineer id"
+        },
+        {
+          type: "input",
+          name: "email",
+          message: "Please add Engineer email address"
+        },
+        {
+          type: "input",
+          name: "github",
+          message: "Please add Engineer's github account"
+        }
+      ])
+      .then(({ name, id, email, github }) => {
+        const newEngineer = new Engineer(name, id, email, github);
+        console.log(newEngineer);
+      })
+      .catch(console.error());
+  }
+  addNewManager();
 }
 
-function addNewEmployee() {
-  console.log("Please insert Employee details...");
-  inquirer
-    .prompt([
-      {
-        type: "input",
-        name: "name",
-        message: "Please add Employee name"
-      },
-      {
-        type: "input",
-        name: "id",
-        message: "Please add Employee id"
-      },
-      {
-        type: "input",
-        name: "email",
-        message: "Please add Employee email address"
-      },
-      {
-        type: "input",
-        name: "role",
-        message: "Please add Employee's role"
-      }
-    ])
-    .then(({ name, id, email, role }) => {
-      const newEmployee = new Employee(name, id, email, role);
-      console.log(newEmployee);
-    });
-}
+createNewTeam();
 
-function buildNewTeam() {
-  addNewManager().then(addNewEmployee());
-}
-
-buildNewTeam();
 // inquirer
 //   .prompt([
 //     {
