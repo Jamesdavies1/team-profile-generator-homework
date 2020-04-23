@@ -9,8 +9,34 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 
 function createNewTeam() {
+  const createdEmployees = [];
+
+  //   appNavigation();?
+  function appNavigation() {
+    inquirer
+      .prompt([
+        {
+          type: "list",
+          name: "choice",
+          message: "Would you like to add another employee?",
+          choices: ["Engineer", "Intern", "No, I am finished"]
+        }
+      ])
+      .then(({ choice }) => {
+        const choiceMapping = {
+          Engineer: addNewEngineer,
+          Intern: addNewIntern,
+          "No, I am finished": () => {
+            const generatedHtml = render(createdEmployees);
+            fs.writeFileSync(outputPath, generatedHtml);
+          }
+        };
+
+        choiceMapping[choice]();
+      });
+  }
   function addNewManager() {
-    console.log("Please begin by adding a new Manager...");
+    // console.log("Please begin by adding a new Manager...");
     inquirer
       .prompt([
         {
@@ -36,13 +62,13 @@ function createNewTeam() {
       ])
       .then(({ name, id, email, number }) => {
         const newManager = new Manager(name, id, email, number);
-        console.log(newManager);
-        addNewIntern();
+        createdEmployees.push(newManager);
+        appNavigation();
       });
   }
 
   function addNewIntern() {
-    console.log("Please insert Intern details...");
+    // console.log("Please insert Intern details...");
     inquirer
       .prompt([
         {
@@ -63,19 +89,18 @@ function createNewTeam() {
         {
           type: "input",
           name: "school",
-          message: "Please add Intern's role"
+          message: "Please add the Intern's school"
         }
       ])
       .then(({ name, id, email, school }) => {
         const newIntern = new Intern(name, id, email, school);
-        console.log(newIntern);
-        addNewEngineer();
+        createdEmployees.push(newIntern);
+        appNavigation();
       })
       .catch(console.error());
   }
 
   function addNewEngineer() {
-    console.log("Please insert Engineer details...");
     inquirer
       .prompt([
         {
@@ -101,7 +126,8 @@ function createNewTeam() {
       ])
       .then(({ name, id, email, github }) => {
         const newEngineer = new Engineer(name, id, email, github);
-        console.log(newEngineer);
+        createdEmployees.push(newEngineer);
+        appNavigation();
       })
       .catch(console.error());
   }
