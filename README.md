@@ -15,6 +15,8 @@ so that I have quick access to emails and GitHub profiles
 
 clone this repo into your local and run 'npm i' in the root file of the folder. 
 This will install all neccesary dependancies and then type 'node app.js' in terminal to begin creating your readme.
+once finished filling out inquirer questions, a new html file will be generated inside the empty output folder.
+this contains your new page!!
 
 --Built With--
 
